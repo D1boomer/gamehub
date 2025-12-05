@@ -3,77 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Loader</title>
+    <title>Game Hub</title>
 
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            background: #181818;
+            color: white;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Sidebar */
-        #menu {
-            width: 220px;
-            background: #222;
-            color: #fff;
-            padding-top: 20px;
-            display: flex;
-            flex-direction: column;
+        /* SIDEBAR */
+        #sidebar {
+            width: 250px;
+            background: #202020;
+            border-right: 2px solid #333;
+            transition: width 0.3s ease;
+            overflow: hidden;
         }
 
-        #menu h2 {
+        #sidebar.collapsed {
+            width: 60px;
+        }
+
+        #sidebar h2 {
             text-align: center;
-            margin-bottom: 20px;
+            padding: 15px 0;
+            margin: 0;
+            background: #2d2d2d;
+            font-size: 20px;
         }
 
+        #toggleBtn {
+            position: absolute;
+            top: 10px;
+            right: -15px;
+            width: 30px;
+            height: 30px;
+            background: #ffaa00;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #000;
+            transition: background 0.2s;
+        }
+
+        #toggleBtn:hover {
+            background: #ffcc33;
+        }
+
+        /* MENU ITEMS */
         .menu-item {
+            display: flex;
+            align-items: center;
             padding: 14px 20px;
             cursor: pointer;
             border-bottom: 1px solid #333;
+            transition: background 0.25s;
+        }
+
+        .menu-item img {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+            border-radius: 6px;
+        }
+
+        #sidebar.collapsed .menu-item span {
+            display: none;
         }
 
         .menu-item:hover {
-            background: #444;
+            background: #383838;
         }
 
-        /* Main content */
+        /* CONTENT AREA */
         #content {
             flex-grow: 1;
-            background: #111;
+            background: #101010;
+            position: relative;
         }
 
         iframe {
+            border: none;
             width: 100%;
             height: 100%;
-            border: none;
             background: #000;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar Menu -->
-    <div id="menu">
+    <div id="sidebar">
         <h2>Games</h2>
-        <div class="menu-item" onclick="loadGame('game1.html')">Game 1</div>
-        <div class="menu-item" onclick="loadGame('game2.html')">Game 2</div>
-        <div class="menu-item" onclick="loadGame('game3.html')">Game 3</div>
+        <div id="toggleBtn" onclick="toggleMenu()">❮</div>
+
+        <div class="menu-item" onclick="loadGame('game1.html')">
+            <img src="https://via.placeholder.com/40/ff4444/ffffff?text=1">
+            <span>Game 1</span>
+        </div>
+
+        <div class="menu-item" onclick="loadGame('game2.html')">
+            <img src="https://via.placeholder.com/40/44ff44/ffffff?text=2">
+            <span>Game 2</span>
+        </div>
+
+        <div class="menu-item" onclick="loadGame('game3.html')">
+            <img src="https://via.placeholder.com/40/4444ff/ffffff?text=3">
+            <span>Game 3</span>
+        </div>
     </div>
 
-    <!-- iFrame Container -->
     <div id="content">
-        <iframe id="gameFrame" src=""></iframe>
+        <iframe id="gameFrame"></iframe>
     </div>
 
-    <script>
-        function loadGame(gameFile) {
-            document.getElementById("gameFrame").src = gameFile;
-        }
-    </script>
+<script>
+    function loadGame(file) {
+        document.getElementById("gameFrame").src = file;
+    }
+
+    function toggleMenu() {
+        const sidebar = document.getElementById("sidebar");
+        const toggle = document.getElementById("toggleBtn");
+
+        sidebar.classList.toggle("collapsed");
+
+        toggle.textContent = sidebar.classList.contains("collapsed") ? "❯" : "❮";
+    }
+</script>
 
 </body>
 </html>
-
