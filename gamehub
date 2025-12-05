@@ -1,130 +1,51 @@
+/ (root)
+  index.html   ← main page with menu
+  game1.html   ← first game
+  game2.html   ← second game
+  game3.html   ← third game
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Hub</title>
+<title>Simple Game Hub</title>
 <style>
-    body { margin:0; font-family:Arial; display:flex; height:100vh; overflow:hidden; background:#181818; color:white; }
-    #sidebar { width:250px; background:#202020; border-right:2px solid #333; transition:width 0.3s; overflow:hidden; position:relative; }
-    #sidebar.collapsed { width:60px; }
-    #sidebar h2 { text-align:center; padding:15px 0; margin:0; background:#2d2d2d; font-size:20px; }
-    #toggleBtn { position:absolute; top:10px; right:-15px; width:30px; height:30px; background:#ffaa00; border-radius:50%; cursor:pointer; display:flex; justify-content:center; align-items:center; font-weight:bold; color:#000; }
-    .menu-item { display:flex; align-items:center; padding:14px 20px; cursor:pointer; border-bottom:1px solid #333; transition:background 0.25s; }
-    .menu-item img { width:40px; height:40px; margin-right:12px; border-radius:6px; }
-    #sidebar.collapsed .menu-item span { display:none; }
-    .menu-item:hover { background:#383838; }
-    #content { flex-grow:1; background:#101010; position:relative; }
-    iframe { border:none; width:100%; height:100%; background:#000; }
+  body { margin:0; font-family:Arial; display:flex; height:100vh; background:#181818; color:white; }
+  #sidebar { width:200px; background:#222; padding-top:20px; }
+  .menu-item { display:flex; align-items:center; padding:10px; cursor:pointer; border-bottom:1px solid #444; }
+  .menu-item img { width:40px; height:40px; margin-right:10px; }
+  .menu-item:hover { background:#333; }
+  #content { flex-grow:1; }
+  iframe { width:100%; height:100%; border:none; }
 </style>
 </head>
 <body>
 
 <div id="sidebar">
-    <h2>Games</h2>
-    <div id="toggleBtn" onclick="toggleMenu()">❮</div>
-
-    <div class="menu-item" onclick="loadGame('https://D1boomer.github.io/gamehub/game1.html')">
-        <img src="https://via.placeholder.com/40/ff4444/ffffff?text=1">
-        <span>Game 1</span>
-    </div>
-
-    <div class="menu-item" onclick="loadGame('https://D1boomer.github.io/gamehub/game2.html')">
-        <img src="https://via.placeholder.com/40/44ff44/ffffff?text=2">
-        <span>Game 2</span>
-    </div>
-
-    <div class="menu-item" onclick="loadGame('https://D1boomer.github.io/gamehub/game3.html')">
-        <img src="https://via.placeholder.com/40/4444ff/ffffff?text=3">
-        <span>Game 3</span>
-    </div>
+  <div class="menu-item" onclick="loadGame('https://D1boomer.github.io/gamehub/game1.html')">
+    <img src="https://via.placeholder.com/40/ff4444/ffffff?text=1">
+    <span>Game 1</span>
+  </div>
+  <div class="menu-item" onclick="loadGame('https://D1boomer.github.io/gamehub/game2.html')">
+    <img src="https://via.placeholder.com/40/44ff44/ffffff?text=2">
+    <span>Game 2</span>
+  </div>
+  <div class="menu-item" onclick="loadGame('https://D1boomer.github.io/gamehub/game3.html')">
+    <img src="https://via.placeholder.com/40/4444ff/ffffff?text=3">
+    <span>Game 3</span>
+  </div>
 </div>
 
 <div id="content">
-    <iframe id="gameFrame"></iframe>
+  <iframe id="gameFrame"></iframe>
 </div>
 
 <script>
-function loadGame(file) {
-    document.getElementById("gameFrame").src = file;
-}
-function toggleMenu() {
-    const sidebar = document.getElementById("sidebar");
-    const btn = document.getElementById("toggleBtn");
-    sidebar.classList.toggle("collapsed");
-    btn.textContent = sidebar.classList.contains("collapsed") ? "❯" : "❮";
+function loadGame(url) {
+  document.getElementById('gameFrame').src = url;
 }
 </script>
 
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Game 1</title>
-<style>
-body { background:black; color:white; font-family:Arial; text-align:center; padding-top:40px; }
-#player { width:50px; height:50px; background:red; position:relative; margin:auto; top:50px; }
-</style>
-</head>
-<body>
-<h1>Game 1 - Move the Square (Arrow Keys)</h1>
-<div id="player"></div>
-<script>
-const p = document.getElementById("player");
-let x=0,y=0;
-document.addEventListener("keydown", e=>{
-if(e.key==="ArrowUp") y-=10;
-if(e.key==="ArrowDown") y+=10;
-if(e.key==="ArrowLeft") x-=10;
-if(e.key==="ArrowRight") x+=10;
-p.style.transform=`translate(${x}px,${y}px)`;
-});
-</script>
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Game 2</title>
-<style>
-body { background:#003300; color:white; font-family:Arial; text-align:center; padding-top:40px; }
-#target { width:80px; height:80px; background:limegreen; border-radius:50%; position:absolute; cursor:pointer; }
-</style>
-</head>
-<body>
-<h1>Game 2 - Click the Target!</h1>
-<p>Score: <span id="score">0</span></p>
-<div id="target"></div>
-<script>
-const t=document.getElementById("target");
-const score=document.getElementById("score");
-function moveTarget(){t.style.left=Math.random()*(window.innerWidth-100)+"px"; t.style.top=Math.random()*(window.innerHeight-150)+"px";}
-t.onclick=()=>{score.textContent=Number(score.textContent)+1; moveTarget();}
-moveTarget();
-</script>
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Game 3</title>
-<style>
-body { background:#001133; color:white; font-family:Arial; text-align:center; padding-top:40px; }
-#ball { width:60px; height:60px; background:cyan; border-radius:50%; position:absolute; left:100px; top:100px; }
-</style>
-</head>
-<body>
-<h1>Game 3 - Bouncing Ball</h1>
-<div id="ball"></div>
-<script>
-const ball=document.getElementById("ball");
-let x=100,y=100,vx=4,vy=3;
-function loop(){x+=vx;y+=vy;if(x<=0||x>=window.innerWidth-60) vx*=-1;if(y<=0||y>=window.innerHeight-60) vy*=-1; ball.style.left=x+"px"; ball.style.top=y+"px"; requestAnimationFrame(loop);}
-loop();
-</script>
 </body>
 </html>
